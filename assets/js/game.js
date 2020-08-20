@@ -13,78 +13,6 @@ var randomNumber = function(min, max) {
     return value;
 };
 
-// function to set name (Must be before the actual object so that it can call on this function)
-var getPlayerName = function() {
-    var name = "";
-    while (name === "" || name === null) {
-        name = prompt("What is your robot's name?");
-    }
-
-    console.log("Your robot 's name is" + name);
-    return name;
-};
-
-
-var playerInfo = {
-    name: getPlayerName(),
-    health: 100,
-    attack: 10,
-    money: 10,
-    reset: function() {
-        this.health = 100;
-        this.money = 10;
-        this.attack = 10;
-    }, // comma added to seperate the functions
-
-
-    refillHealth: function() {
-        if (this.money >= 7) {
-            window.alert("Refilling player's health by 20 for 7 dollars.");
-            this.health += 20;
-            this.money -= 7;
-        } else {
-            window.alert("You don't have enough money!");
-        }
-    }, // comma added to seperate the functions
-
-
-    upgradeAttack: function() {
-        if (this.money >= 7) {
-            window.alert("Upgrading player's attack by 6 for 7 dollars.");
-            this.attack += 6;
-            this.money -= 7;
-        } else {
-            window.alert("You don't have enough money!");
-        }
-    }
-};
-
-
-// You can also log multiple values at once like this
-console.log(playerInfo.name, playerInfo.attack, playerInfo.health, playerInfo.money);
-
-var enemyInfo = [{
-        name: "Roborto",
-        attack: randomNumber(10, 14)
-    },
-    {
-        name: "Amy Android",
-        attack: randomNumber(10, 14)
-    },
-    {
-        name: "Robo Trumble",
-        attack: randomNumber(10, 14)
-    }
-];
-
-console.log(enemyInfo)
-console.log(enemyInfo.length);
-
-for (var i = 0; i < enemyInfo.length; i++) {
-    console.log(enemyInfo.length[i]);
-    console.log(i);
-    console.log(enemyInfo.length[i] + " is at " + i + " index");
-}
 
 // This will keep the actual fight function from moving foward until an actual answer is submitted
 // Remember that 
@@ -111,8 +39,9 @@ var fightOrSkip = function() {
             playerInfo.playerMoney = playerInfo.money - 10;
             // return true if user wants to leave
             return true;
+        } else {
+            fightOrSkip();
         }
-        shop();
     }
 }
 
@@ -239,49 +168,89 @@ var endGame = function() {
 var shop = function() {
     // ask player what they'd like to do
     var shopOptionPrompt = window.prompt(
-        "Would you like to REFILL your health, UPGRADE your attack, or LEAVE the store? Please enter one: 'REFILL', 'UPGRADE', or 'LEAVE' to make a choice."
+        "Would you like to REFILL your health, UPGRADE your attack, or LEAVE the store? Please enter one 1 for REFILL, 2 for UPGRADE, or 3 for LEAVE."
     );
 
     // use switch to carry out action
+    shopOptionPrompt = parseInt(shopOptionPrompt);
+
     switch (shopOptionPrompt) {
-        case "REFILL":
-        case "refill":
+        case 1:
             playerInfo.refillHealth();
             break;
-
-        case "UPGRADE":
-        case "upgrade":
+        case 2:
             playerInfo.upgradeAttack();
             break;
-
-        case "LEAVE": // new case
-        case "leave":
+        case 3:
             window.alert("Leaving the store.");
             break;
-
         default:
             window.alert("You did not pick a valid option. Try again.");
             shop();
             break;
     }
+};
 
-    var num = 5;
 
-    switch (num) {
-        case 1:
-            console.log("the variable was 1");
-            break;
-        case 2:
-            console.log("the variable was 2");
-            break;
-        case 3:
-            console.log("the variable was 3");
-            break;
-        default:
-            console.log("the variable was something else");
-            break;
+// function to set name (Must be before the actual object so that it can call on this function)
+var getPlayerName = function() {
+    var name = "";
+    while (name === "" || name === null) {
+        name = prompt("What is your robot's name?");
+    }
+
+    console.log("Your robot 's name is" + name);
+    return name;
+};
+
+
+var playerInfo = {
+    name: getPlayerName(),
+    health: 100,
+    attack: 10,
+    money: 10,
+    reset: function() {
+        this.health = 100;
+        this.money = 10;
+        this.attack = 10;
+    }, // comma added to seperate the functions
+
+
+    refillHealth: function() {
+        if (this.money >= 7) {
+            window.alert("Refilling player's health by 20 for 7 dollars.");
+            this.health += 20;
+            this.money -= 7;
+        } else {
+            window.alert("You don't have enough money!");
+        }
+    }, // comma added to seperate the functions
+
+
+    upgradeAttack: function() {
+        if (this.money >= 7) {
+            window.alert("Upgrading player's attack by 6 for 7 dollars.");
+            this.attack += 6;
+            this.money -= 7;
+        } else {
+            window.alert("You don't have enough money!");
+        }
     }
 };
+
+var enemyInfo = [{
+        name: "Roborto",
+        attack: randomNumber(10, 14)
+    },
+    {
+        name: "Amy Android",
+        attack: randomNumber(10, 14)
+    },
+    {
+        name: "Robo Trumble",
+        attack: randomNumber(10, 14)
+    }
+];
 
 
 startGame();
