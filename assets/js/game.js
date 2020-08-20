@@ -4,6 +4,8 @@
 //    * Defeat each enemy robot
 // "LOSE" - Player robot's health is zero or less
 
+
+
 // function to generate a random numeric value
 // put at top to keep for the whole code
 var randomNumber = function(min, max) {
@@ -11,9 +13,20 @@ var randomNumber = function(min, max) {
     return value;
 };
 
+// function to set name (Must be before the actual object so that it can call on this function)
+var getPlayerName = function() {
+    var name = "";
+    while (name === "" || name === null) {
+        name = prompt("What is your robot's name?");
+    }
+
+    console.log("Your robot 's name is" + name);
+    return name;
+};
+
 
 var playerInfo = {
-    name: window.prompt("What is your robot's name?"),
+    name: getPlayerName(),
     health: 100,
     attack: 10,
     money: 10,
